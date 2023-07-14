@@ -26,8 +26,7 @@
 // Use at least two classes.
 // Your menu should have the options to create, view, and delete elements.
 
-  // Teams and Players on those teams
-class Player {
+class Actor {
   constructor(name, position) {
   this.name = name;
   this.position = position;
@@ -38,23 +37,23 @@ class Player {
   return `${this.name} plays ${this.position}`;
   }
   }
-  class Team {
+  class Comedian {
   constructor(name) {
   this.name = name;
-  this.players = [];
+  this.actors = [];
   }
   
-  addPlayer(player) {
-  if (player instanceof Player) {
-  this.players.push(player);
+  addActor(actor) {
+  if (actor instanceof Actor) {
+  this.actors.push(actor);
   } else {
-  throw new Error(`You can only add an instance of Player. 
-  argument is not a player: ${player}`);
+  throw new Error(`You can only add an instance of Actor. 
+  argument is not a actors: ${actor}`);
   }
   }
   
   describe() {
-  return `${this.name} has ${this.players.length} players.`;
+  return `${this.name} has ${this.actors.length} actors.`;
   }
   }
   class Menu { // what drives the application and our choices
@@ -68,16 +67,16 @@ class Player {
   while (selection != 0) {
   switch(selection) {
   case '1' :
-  this.createTeam();
+  this.createComedian();
   break;
   case '2' :
-  this.viewTeam();
+  this.viewComedian();
   break;
   case '3' :
-  this.deleteTeam();
+  this.deleteComedian();
   break;
   case '4' :
-  this.displayTeams();
+  this.displayComedian();
   break;
   default:
   selection = 0;
@@ -91,81 +90,79 @@ class Player {
   showMainMenuOptions() {
   return prompt(`
   0) exit
-  1) create a new team
-  2) view a team
-  3) delete a team
-  4) display all teams
+  1) create a new comedian
+  2) view a comedian
+  3) delete a comedian
+  4) display all comedians
   `);
   }
   
   showTeamMenuOptions(teamInfo) {
   return prompt(`
   0) back
-  1) add a new player
-  2) delete a player
+  1) add a new actor
+  2) delete a actor
   -----------------
-  ${teamInfo}
+  ${actorInfo}
   `);
   }
   
-  displayTeams() {
+  displayActors() {
   let teamString = '';
-  for (let i = 0; i < this.teams.length; i++) {
-  teamString += i+ ') ' + this.teams[i].name + '\n';
+  for (let i = 0; i < this.actors.length; i++) {
+  teamString += i+ ') ' + this.actors[i].name + '\n';
   }
-  alert(teamString);
-  }
-  
-  createTeam() {
-  let name = prompt('Enter name for new team: ');
-  this.teams.push(new Team(name));
+  alert(actorString);
   }
   
-  viewTeam() {
-  let index = prompt("Enter the index of the team that you want to view:");
-  if (index > -1 && index < this.teams.length) {
-  this.selectedTeam = this.teams[index];
-  let description = 'Team Name: ' + this.selectedTeam.name + '\n';
-  description += ' ' + this.selectedTeam.describe() + '\n ';
-  for (let i = 0; i < this.selectedTeam.players.length; i++) {
+  createComedian() {
+  let name = prompt('Enter name for new comedian: ');
+  this.comedians.push(new Comedian(name));
+  }
+  
+  viewComedian() {
+  let index = prompt("Enter the index of the comedian that you want to view:");
+  if (index > -1 && index < this.comedians.length) {
+  this.selectedComedian = this.comedians[index];
+  let description = 'Comedian Name: ' + this.selectedComedian.name + '\n';
+  description += ' ' + this.selectedComedian.describe() + '\n ';
+  for (let i = 0; i < this.selectedComedian.actors.length; i++) {
   // description += i + ') ' + this.selectedTeam.players[i].name + ' - '
   // + this.selectedTeam.players[i].position + '\n';
-  description += i + ') ' + this.selectedTeam.players[i].describe() + '\n';
+  description += i + ') ' + this.selectedComedian.actors[i].describe() + '\n';
   }
-  let selection1 = this.showTeamMenuOptions(description);
+  let selection1 = this.showComedianMenuOptions(description);
   switch (selection1) {
   case '1' :
-  this.createPlayer();
+  this.createActor();
   break;
   case '2' :
-  this.deletePlayer();
+  this.deleteActor();
   }
   } // validate user input
   }
   
-  deleteTeam() {
-  let index = prompt('Enter the index of the team that you wish to delete: ');
-  if (index > -1 && index < this.teams.length) {
-  this.teams.splice(index,1);
+  deleteActor() {
+  let index = prompt('Enter the index of the Comedian that you wish to delete: ');
+  if (index > -1 && index < this.comedians.length) {
+  this.comedians.splice(index,1);
   }
   }
   
   
-  createPlayer() {
-  let name = prompt('Enter name for new player: ');
-  let position = prompt('Enter position for new player: ');
+  createActor() {
+  let name = prompt('Enter name for new actor: ');
+  let position = prompt('Enter position for new actor: ');
   //this.selectedTeam.players.push(new Player(name, position));
-  this.selectedTeam.addPlayer(new Player(name,position));
+  this.selectedComedian.addActor(new actorInfo(name,position));
   }
   
-  deletePlayer() {
-  let index = prompt('Enter the index of the player that you wish to delete: ');
-  if (index > -1 && index < this.selectedTeam.players.length) { this.selectedTeam.players.splice(index,1);
+  deleteActor() {
+  let index = prompt('Enter the index of the actor that you wish to delete: ');
+  if (index > -1 && index < this.selectedComedian.actors.length) { this.selectedComedian.actors.splice(index,1);
   }
   }
   }
   let menu = new Menu();
   menu.start();
-  
-  
   
